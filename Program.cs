@@ -33,6 +33,11 @@ namespace ConsoleApp1
                 Console.WriteLine($"- {p.Name} is green.");
             }
 
+            Console.WriteLine("Red and Large Products (New): ");
+            foreach (var p in bf.Filter(products, new AndSpecification<Product> (new ColorSpecification(Color.Red), new SizeSpecification(Size.Yuge)))) {
+                Console.WriteLine($"- {p.Name} is Red and Yuge.");
+            }
+
             Console.ReadLine();
         }
     }
