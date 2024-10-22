@@ -4,56 +4,35 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System_Design.SOLID_;
 
 namespace ConsoleApp1
 {
-    public class Journal
-    {
-        private readonly List<string> entries = new List<string>();
-        public static int count = 0;
-
-        public int AddEntry(string text)
-        {
-            entries.Add($"{++count}: {text}");
-            return count;
-        }
-
-        public void RemoveEntry(int index)
-        {
-            entries.RemoveAt(index);
-        }
-
-        public override string ToString()
-        {
-            return string.Join(Environment.NewLine, entries.ToArray());
-        }
-    }
-
-    public class Persistence
-    {
-        public void SaveToFile(Journal j, string filename, bool overwrite = false)
-        {
-            if (overwrite || !File.Exists(filename))
-            {
-                File.WriteAllText(filename, j.ToString());
-            }
-        }
-    }
-
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
 
-            var j = new Journal();
-            j.AddEntry("I cried Today.");
-            j.AddEntry("I ate a Bug.");
-            Console.WriteLine(j);
+            var apple = new Product("apple", Color.Green, Size.Small);
+            var tree = new Product("tree", Color.Green, Size.Large);
+            var house = new Product("house", Color.Red, Size.Yuge);
 
-            var filename = @"C:/temp/journal.txt";
-            Persistence p = new Persistence();
-            p.SaveToFile(j, filename, true);
-            Process.Start(filename);
+            Product[] products = {apple, tree, house};
+            var pf = new ProductFilter();
+            Console.WriteLine("Green Products: ");
+            foreach(var p in pf.FilterByColor(products, Color.Green))
+            {
+                Console.WriteLine($"- {p.Name} is green.");
+            }
+
+            Console.WriteLine("Green Products (New): ");
+
+            var bf = new BetterFilter();
+            foreach(var p in bf.Filter(products, new ColorSpecification(Color.Green)))
+            {
+                Console.WriteLine($"- {p.Name} is green.");
+            }
+
             Console.ReadLine();
         }
     }
