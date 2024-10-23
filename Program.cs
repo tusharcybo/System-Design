@@ -10,36 +10,23 @@ namespace ConsoleApp1
 {
     public class Program
     {
+        static public int Area(Rectangle r) => r.Width * r.Height;
         static void Main(string[] args)
         {
+            Rectangle rc = new Rectangle(2,3);
+            Console.WriteLine($"{rc} has Area: {Area(rc)}");
 
-            var apple = new Product("apple", Color.Green, Size.Small);
-            var tree = new Product("tree", Color.Green, Size.Large);
-            var house = new Product("house", Color.Red, Size.Yuge);
+            // Square sq = new Square(); // changing it to
+            Rectangle sq = new Square(); // will break o/p Width: 2, Height: 0 has Area: 0
+            sq.Width = 2; // Setting the width which means you are only setting the width
 
-            Product[] products = {apple, tree, house};
-            var pf = new ProductFilter();
-            Console.WriteLine("Green Products: ");
-            foreach(var p in pf.FilterByColor(products, Color.Green))
-            {
-                Console.WriteLine($"- {p.Name} is green.");
-            }
-
-            Console.WriteLine("Green Products (New): ");
-
-            var bf = new BetterFilter();
-            foreach(var p in bf.Filter(products, new ColorSpecification(Color.Green)))
-            {
-                Console.WriteLine($"- {p.Name} is green.");
-            }
-
-            Console.WriteLine("Red and Large Products (New): ");
-            foreach (var p in bf.Filter(products, new AndSpecification<Product> (new ColorSpecification(Color.Red), new SizeSpecification(Size.Yuge)))) {
-                Console.WriteLine($"- {p.Name} is Red and Yuge.");
-            }
+            Console.WriteLine($"{sq} has Area: {Area(sq)}");
 
             Console.ReadLine();
         }
+
+
+        
     }
 
 }
