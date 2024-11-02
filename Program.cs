@@ -10,18 +10,17 @@ namespace ConsoleApp1
 {
     public class Program
     {
-        static public int Area(Rectangle r) => r.Width * r.Height;
         static void Main(string[] args)
         {
-            Rectangle rc = new Rectangle(2,3);
-            Console.WriteLine($"{rc} has Area: {Area(rc)}");
+            Person parent = new Person { Name = "John" };
+            Person child1 = new Person { Name = "Chris" };
+            Person child2 = new Person { Name = "Mary" };
 
-            // Square sq = new Square(); // changing it to
-            Rectangle sq = new Square(); // will break o/p Width: 2, Height: 0 has Area: 0
-            sq.Width = 2; // Setting the width which means you are only setting the width
+            var relationships = new Relationships();
+            relationships.AddParentAddChild(parent, child1);
+            relationships.AddParentAddChild(parent, child2);
 
-            Console.WriteLine($"{sq} has Area: {Area(sq)}");
-
+            new Research(relationships);
             Console.ReadLine();
         }
 

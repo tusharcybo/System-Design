@@ -5,6 +5,40 @@ using System.Text;
 
 namespace System_Design.SOLID_
 {
+    /*
+     Open/Closed Principle Overview
+Definition:
+Parts of a system(or subsystems) should be open for extension but closed for modification.
+New functionality can be added without changing existing code.
+Implementation in Filtering Example
+Objective:
+
+Find items that meet specific criteria(e.g., large blue items).
+Class Structure:
+
+BetterFilter: A class responsible for filtering items based on various criteria.
+Specification Pattern:
+Uses separate classes to define filtering criteria (e.g., ColorSpecification, SizeSpecification).
+Composite Specification:
+
+To filter by multiple criteria, an AndSpecification is used to combine different specifications.
+Example criteria:
+Color: Blue
+Size: Large
+Filtering Process:
+
+The BetterFilter takes the composite specification and iterates through the items.
+Each item is checked against the combined criteria.
+In the example, the filter successfully returns a blue house, indicating a match.
+Key Benefits of the Open/Closed Principle
+Avoids Modification: Existing classes (like BetterFilter) do not need to be altered when adding new specifications.
+Encourages Reusability: New specifications can be created as needed without affecting the core functionality.
+Supports Extensibility: Additional functionality can be provided through new classes, allowing for a more flexible and maintainable design.
+Recap of the Open/Closed Principle
+Aim for designs where functionality can be extended through new classes rather than modifying existing ones.
+This design philosophy facilitates shipping new features or modules without disrupting existing code that is already in use by customers.
+    */
+
     public enum Color 
     { 
         Red, Green, Blue
@@ -63,38 +97,13 @@ namespace System_Design.SOLID_
         }
         
     }
-    /*
-     here in product filter if you want to add more filters, you have to add more methods in the ProductFilter class which breaks the open/close principle
-     OCP states that classes should be open to extension, which means it should be possible to extend the product filter. but it should be closed for modification.
-     which mean nobody should go back and edit the product filter. the filter might have already been shifted to a customer.
-     the answer is ofcourse inheritance.
-     */
-
-    /*
-     we're going to implement what you might call an enterprise pattern called the specification pattern
-    And this is precisely the thing that will allow us to avoid violating the open closed principle.
-    instead of having this rigid functionality we're going to make a bunch of interfaces
-    the first interface that we're going to make is going to be called specification satisfies some particular criteria.
-    So you can think of this specification as a kind of predicate which operates on any type T.
-     */
-
-    /*
-     So what's happening here is that we allow people to make specifications and 
-     we check whether a particular item of type T is actually satisfying some criteria
-     */
+    
     public interface ISpecification<T>
     {
         bool IsSatasfied(T t);
     }
 
-    /*
-     a filtering mechanism which once again operates on any type T. So we take a bunch of items of type T 
-     and lifter according to the specification which is defined here.
-    So this is the interface you feeded a bunch of items. You tell it what the specification of those items should 
-    be and how to filter them and you get a bunch of filtered items back.
-
-
-     */
+   
     public interface IFilter<T>
     {
         IEnumerable<T> Filter(IEnumerable<T> items, ISpecification<T> spec);
