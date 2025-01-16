@@ -42,6 +42,16 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SOLID_\ISP.cs" />
+    <Compile Include="SOLID_\LSP.cs" />
+    <Compile Include="SOLID_\OCP.cs" />
+    <Compile Include="SOLID_\SRP.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SOLID\Liskov Substitution Principle.txt" />
+    <Content Include="SOLID\Open-Close Principle.txt" />
+    <Content Include="SOLID\Single Responsibility Principal.txt" />
+    <Content Include="SOLID\Single Responsibility Principle.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,58 +4,28 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System_Design.SOLID_;
 
 namespace ConsoleApp1
 {
-    public class Journal
-    {
-        private readonly List<string> entries = new List<string>();
-        public static int count = 0;
-
-        public int AddEntry(string text)
-        {
-            entries.Add($"{++count}: {text}");
-            return count;
-        }
-
-        public void RemoveEntry(int index)
-        {
-            entries.RemoveAt(index);
-        }
-
-        public override string ToString()
-        {
-            return string.Join(Environment.NewLine, entries.ToArray());
-        }
-    }
-
-    public class Persistence
-    {
-        public void SaveToFile(Journal j, string filename, bool overwrite = false)
-        {
-            if (overwrite || !File.Exists(filename))
-            {
-                File.WriteAllText(filename, j.ToString());
-            }
-        }
-    }
-
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            Person parent = new Person { Name = "John" };
+            Person child1 = new Person { Name = "Chris" };
+            Person child2 = new Person { Name = "Mary" };
 
-            var j = new Journal();
-            j.AddEntry("I cried Today.");
-            j.AddEntry("I ate a Bug.");
-            Console.WriteLine(j);
+            var relationships = new Relationships();
+            relationships.AddParentAddChild(parent, child1);
+            relationships.AddParentAddChild(parent, child2);
 
-            var filename = @"C:/temp/journal.txt";
-            Persistence p = new Persistence();
-            p.SaveToFile(j, filename, true);
-            Process.Start(filename);
+            new Research(relationships);
             Console.ReadLine();
         }
+
+
+        
     }
 
 }
